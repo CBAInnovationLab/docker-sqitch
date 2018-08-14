@@ -1,13 +1,13 @@
 
-FROM perl:latest
+FROM ubuntu:xenial
 LABEL maintainer="dan.turner@cba.com.au"
 
-RUN cpan App::Sqitch \
- && cpan DBD::Pg \
- && apt-get update && apt-get install -y \
-  postgresql-client \
+RUN apt-get update && apt-get install -y \
+      sqitch \
+      libdbd-pg-perl \
+      postgresql-client \
  && mkdir -p /src
 
 WORKDIR /src
 
-ENTRYPOINT ["/usr/local/bin/sqitch"]
+ENTRYPOINT ["/usr/bin/sqitch"]
